@@ -7,41 +7,54 @@
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
+            margin: 0;
             background-color: #f0f2f5;
             color: #333;
             line-height: 1.6;
+            padding: 20px; /* Padding geral para o body */
+            box-sizing: border-box;
         }
         .container {
-            max-width: 900px;
-            margin: 30px auto;
+            max-width: 960px; /* Largura máxima para computadores */
+            margin: 20px auto;
             background-color: #ffffff;
-            padding: 30px 40px;
+            padding: 30px 40px; /* Padding maior para computadores */
             border-radius: 12px;
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+            box-sizing: border-box;
+        }
+        .header-info {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #e0e6ec;
+            color: #555;
+            font-size: 0.9em;
+        }
+        .header-info strong {
+            color: #0056b3;
         }
         h1 {
             color: #0056b3;
             text-align: center;
-            font-size: 2.5em;
+            font-size: 2.5em; /* Tamanho para computadores */
             margin-bottom: 30px;
             border-bottom: 3px solid #e0e6ec;
             padding-bottom: 15px;
         }
         h2 {
             color: #007bff;
-            font-size: 1.8em;
+            font-size: 1.8em; /* Tamanho para computadores */
             margin-top: 40px;
             margin-bottom: 15px;
             border-left: 5px solid #007bff;
-            padding-left: 10px;
-            background-color: #eaf6ff;
             padding: 10px;
+            background-color: #eaf6ff;
             border-radius: 5px;
         }
         h3 {
             color: #28a745;
-            font-size: 1.4em;
+            font-size: 1.4em; /* Tamanho para computadores */
             margin-top: 25px;
             margin-bottom: 10px;
         }
@@ -53,29 +66,37 @@
             background-color: #f8f9fa;
             border: 1px solid #e0e6ec;
             margin-bottom: 10px;
-            padding: 15px 20px;
+            padding: 15px 20px; /* Padding maior para computadores */
             border-radius: 8px;
             display: flex;
             align-items: flex-start;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+            cursor: pointer; /* Indica que o item é clicável */
         }
         li:hover {
             background-color: #e9ecef;
+            border-color: #a7d9ff; /* Mudar a cor da borda ao passar o mouse */
         }
         input[type="checkbox"] {
             margin-right: 15px;
             min-width: 20px;
             min-height: 20px;
             cursor: pointer;
-            accent-color: #28a745; /* Cor do checkbox */
+            accent-color: #28a745;
+            flex-shrink: 0; /* Impede que o checkbox encolha */
+            margin-top: 3px; /* Alinha melhor com o texto */
         }
         .task-description {
             flex-grow: 1;
-            font-size: 1.1em;
+            font-size: 1.1em; /* Tamanho para computadores */
+        }
+        .task-description strong {
+            display: block; /* Garante que o título da tarefa ocupe sua própria linha */
+            margin-bottom: 5px;
         }
         .sub-tasks {
             margin-top: 10px;
-            font-size: 0.95em;
+            font-size: 0.95em; /* Tamanho para computadores */
             color: #555;
             padding-left: 20px;
             border-left: 2px dashed #ccddee;
@@ -84,14 +105,26 @@
         .sub-tasks strong {
             color: #0056b3;
         }
-        .notes {
+        .notes, .motivation-phrase {
             font-style: italic;
             color: #666;
-            margin-top: 20px;
+            margin-top: 25px;
             padding: 15px;
+            border-radius: 5px;
+            line-height: 1.5;
+            text-align: center;
+        }
+        .notes {
             background-color: #fff3cd;
             border-left: 5px solid #ffc107;
-            border-radius: 5px;
+        }
+        .motivation-phrase {
+            background-color: #d1ecf1;
+            border-left: 5px solid #007bff;
+            color: #0056b3;
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-bottom: 30px;
         }
         .completed {
             background-color: #d4edda;
@@ -102,19 +135,128 @@
         .completed .task-description {
             color: #6c757d;
         }
+        .completed li:hover {
+            background-color: #c3e6cb; /* Cor mais escura ao passar o mouse em completo */
+            border-color: #28a745;
+        }
+
+        /* Media Queries para Responsividade (Celular) */
+        @media (max-width: 768px) {
+            body {
+                padding: 15px;
+            }
+            .container {
+                margin: 15px auto;
+                padding: 20px;
+            }
+            .header-info {
+                font-size: 0.8em;
+                margin-bottom: 20px;
+            }
+            h1 {
+                font-size: 2em;
+                margin-bottom: 25px;
+                padding-bottom: 12px;
+            }
+            h2 {
+                font-size: 1.6em;
+                margin-top: 35px;
+                padding: 8px 10px;
+            }
+            h3 {
+                font-size: 1.25em;
+                margin-top: 20px;
+            }
+            li {
+                padding: 12px 15px;
+                flex-direction: column; /* Coloca checkbox e texto em linhas separadas */
+                align-items: flex-start; /* Alinha o conteúdo à esquerda */
+            }
+            input[type="checkbox"] {
+                margin-right: 0;
+                margin-bottom: 8px; /* Espaço abaixo do checkbox */
+                min-width: 24px; /* Aumenta um pouco mais para toque fácil */
+                min-height: 24px; /* Aumenta um pouco mais para toque fácil */
+            }
+            .task-description {
+                font-size: 1em;
+                width: 100%; /* Ocupa toda a largura disponível */
+            }
+            .sub-tasks {
+                font-size: 0.9em;
+                padding-left: 15px;
+                margin-left: 0; /* Remove margem para não apertar */
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .notes, .motivation-phrase {
+                margin-top: 20px;
+                padding: 12px;
+                font-size: 0.95em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                margin: 10px auto;
+                padding: 15px;
+            }
+            .header-info {
+                font-size: 0.75em;
+                margin-bottom: 15px;
+            }
+            h1 {
+                font-size: 1.8em;
+                margin-bottom: 15px;
+                padding-bottom: 10px;
+            }
+            h2 {
+                font-size: 1.4em;
+                margin-top: 25px;
+                padding: 8px;
+            }
+            h3 {
+                font-size: 1.1em;
+            }
+            li {
+                padding: 10px 12px;
+            }
+            input[type="checkbox"] {
+                min-width: 26px; /* Ainda maior para toque fácil em telas muito pequenas */
+                min-height: 26px;
+            }
+            .task-description {
+                font-size: 0.9em;
+            }
+            .sub-tasks {
+                font-size: 0.85em;
+            }
+            .notes, .motivation-phrase {
+                font-size: 0.85em;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
+        <div class="header-info">
+            Desenvolvido por <strong>TIAGO VIANA DA CRUZ</strong> - Número: 88 9 9346-4285 - Camocim - Ceará - Rua Paissandu 1951
+        </div>
         <h1>🚀 Checklist de Lançamento Completo 🚀</h1>
-        <p class="notes">
-            <strong>Dica:</strong> Salve este arquivo HTML no seu computador (clicando com o botão direito na página e escolhendo "Salvar como...") e abra-o no seu navegador. Você pode ir marcando as caixinhas e acompanhando seu progresso!
+
+        ---
+
+        <p class="motivation-phrase">
+            "Acredite no seu potencial. Cada passo, por menor que seja, te aproxima do sucesso!"
         </p>
 
         <h2>1. Definição do Produto Principal e Bônus</h2>
         <ul>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Produto Principal: Ebook</strong>
                     <div class="sub-tasks">
@@ -125,8 +267,8 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Bônus para Agregação de Valor e Escassez Indireta</strong>
                     <div class="sub-tasks">
@@ -139,10 +281,16 @@
             </li>
         </ul>
 
+        ---
+
+        <p class="motivation-phrase">
+            "Sua visão é a bússola. Mantenha o foco e construa sua realidade com dedicação."
+        </p>
+
         <h2>2. Criação e Gestão de Grupos no WhatsApp</h2>
         <ul>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Grupos de Pré-Lançamento (Aquecimento e Qualificação)</strong>
                     <div class="sub-tasks">
@@ -155,8 +303,8 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Grupos de Pós-Lançamento (Suporte e Comunidade para Compradores)</strong>
                     <div class="sub-tasks">
@@ -168,10 +316,16 @@
             </li>
         </ul>
 
+        ---
+
+        <p class="motivation-phrase">
+            "A persistência é o caminho do êxito. Cada desafio é uma oportunidade de crescimento."
+        </p>
+
         <h2>3. Estratégias de Escassez e Urgência</h2>
         <ul>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Escassez de Vagas/Unidades (Aplicada aos Bônus)</strong>
                     <div class="sub-tasks">
@@ -182,8 +336,8 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Escassez de Tempo (Aplicada à Oferta Principal)</strong>
                     <div class="sub-tasks">
@@ -194,8 +348,8 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Escassez de Lotes (Preço Crescente)</strong>
                     <div class="sub-tasks">
@@ -204,8 +358,8 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Bônus por Tempo Limitado ou Primeiros Compradores</strong>
                     <div class="sub-tasks">
@@ -215,11 +369,17 @@
             </li>
         </ul>
 
+        ---
+
+        <p class="motivation-phrase">
+            "Organização é a chave para a liberdade. Siga o plano e celebre cada conquista."
+        </p>
+
         <h2>4. Cronograma de Lançamento (Exemplo)</h2>
         <h3>Fase 1: Pré-Lançamento (Aquecimento)</h3>
         <ul>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Semana 1-2:</strong>
                     <div class="sub-tasks">
@@ -230,8 +390,8 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Semana 3:</strong>
                     <div class="sub-tasks">
@@ -246,8 +406,8 @@
 
         <h3>Fase 2: Lançamento (Abertura de Carrinho)</h3>
         <ul>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Dia do Lançamento:</strong>
                     <div class="sub-tasks">
@@ -262,8 +422,8 @@
 
         <h3>Fase 3: Pós-Lançamento (Fechamento de Carrinho e Pós-Venda)</h3>
         <ul>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Dias Pós-Lançamento:</strong>
                     <div class="sub-tasks">
@@ -274,8 +434,8 @@
                     </div>
                 </div>
             </li>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Pós-Venda e Suporte:</strong>
                     <div class="sub-tasks">
@@ -287,34 +447,40 @@
             </li>
         </ul>
 
+        ---
+
+        <p class="motivation-phrase">
+            "As ferramentas certas são um atalho para o sucesso. Escolha com sabedoria e otimize seu tempo."
+        </p>
+
         <h2>5. Ferramentas Essenciais (Para Pesquisa)</h2>
         <ul>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Plataforma de Vendas:</strong> Hotmart, Eduzz, Kiwify, Monetizze.
                 </div>
             </li>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>E-mail Marketing:</strong> Leadlovers, ActiveCampaign, Mailchimp, Sendinblue.
                 </div>
             </li>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Página de Vendas:</strong> Elementor (WordPress), Leadpages, ClickFunnels, Klickpages.
                 </div>
             </li>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Grupos de Comunicação:</strong> WhatsApp Business, Telegram.
                 </div>
             </li>
-            <li>
-                <input type="checkbox" onchange="toggleCompleted(this)">
+            <li onclick="toggleCheckbox(this)">
+                <input type="checkbox">
                 <div class="task-description">
                     <strong>Ferramentas de Design:</strong> Canva, Figma.
                 </div>
@@ -327,6 +493,7 @@
     </div>
 
     <script>
+        // Função para alternar o estado do checkbox e a classe 'completed'
         function toggleCompleted(checkbox) {
             const listItem = checkbox.closest('li');
             if (checkbox.checked) {
@@ -334,22 +501,42 @@
             } else {
                 listItem.classList.remove('completed');
             }
+            // Salva o estado no localStorage
+            saveCheckboxState(checkbox);
         }
 
-        // Recuperar o estado dos checkboxes do localStorage (opcional, para manter o progresso)
+        // Função para alternar o checkbox ao clicar em qualquer parte do item da lista
+        function toggleCheckbox(listItem) {
+            const checkbox = listItem.querySelector('input[type="checkbox"]');
+            // Impede que o clique no texto da descrição também altere o checkbox
+            if (event.target !== checkbox) {
+                checkbox.checked = !checkbox.checked;
+                toggleCompleted(checkbox);
+            }
+        }
+
+        // Salvar o estado de um checkbox no localStorage
+        function saveCheckboxState(checkbox) {
+            const index = Array.from(document.querySelectorAll('input[type="checkbox"]')).indexOf(checkbox);
+            localStorage.setItem(`checkbox-${index}`, checkbox.checked);
+        }
+
+        // Carregar o estado dos checkboxes do localStorage ao carregar a página
         document.addEventListener('DOMContentLoaded', () => {
             const checkboxes = document.querySelectorAll('input[type="checkbox"]');
             checkboxes.forEach((checkbox, index) => {
                 const storedState = localStorage.getItem(`checkbox-${index}`);
                 if (storedState === 'true') {
                     checkbox.checked = true;
+                    // Chamar toggleCompleted para aplicar a classe 'completed'
                     toggleCompleted(checkbox);
                 }
+                // Adicionar evento de change para salvar o estado (caso o usuário clique diretamente no checkbox)
                 checkbox.addEventListener('change', () => {
-                    localStorage.setItem(`checkbox-${index}`, checkbox.checked);
+                    toggleCompleted(checkbox);
                 });
             });
         });
     </script>
 </body>
-</html>
+</html> 
