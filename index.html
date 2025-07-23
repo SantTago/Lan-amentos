@@ -69,13 +69,22 @@
             padding: 15px 20px; /* Padding maior para computadores */
             border-radius: 8px;
             display: flex;
-            align-items: flex-start;
+            flex-direction: column; /* Alterado para coluna para facilitar a barra de progresso */
+            align-items: flex-start; /* Alinha itens ao início */
             transition: background-color 0.3s ease, border-color 0.3s ease;
             cursor: pointer; /* Indica que o item é clicável */
+            position: relative; /* Para posicionar a barra de progresso */
+            overflow: hidden; /* Garante que a barra de progresso não vaze */
         }
         li:hover {
             background-color: #e9ecef;
             border-color: #a7d9ff; /* Mudar a cor da borda ao passar o mouse */
+        }
+        .checkbox-container {
+            display: flex;
+            align-items: center;
+            width: 100%; /* Ocupa a largura total para alinhar o checkbox e o texto principal */
+            margin-bottom: 8px; /* Espaço entre o checkbox/título e as sub-tasks/barra */
         }
         input[type="checkbox"] {
             margin-right: 15px;
@@ -89,10 +98,10 @@
         .task-description {
             flex-grow: 1;
             font-size: 1.1em; /* Tamanho para computadores */
+            color: #333; /* Cor original para o texto principal */
         }
         .task-description strong {
-          
-            margin-bottom: 5px;
+            /* Mantido para estilizar o strong dentro da descrição */
         }
         .sub-tasks {
             margin-top: 10px;
@@ -101,6 +110,7 @@
             padding-left: 20px;
             border-left: 2px dashed #ccddee;
             margin-left: 15px;
+            width: calc(100% - 35px); /* Ajusta a largura para a linha tracejada */
         }
         .sub-tasks strong {
             color: #0056b3;
@@ -129,15 +139,39 @@
         .completed {
             background-color: #d4edda;
             border-color: #28a745;
-            text-decoration: line-through;
+            /* text-decoration: line-through; - Removido para não afetar sub-tasks */
+        }
+        .completed .task-description, .completed .sub-tasks {
             color: #6c757d;
         }
-        .completed .task-description {
+        .completed .sub-tasks strong { /* Garante que o strong no sub-task também seja cinza */
             color: #6c757d;
         }
         .completed li:hover {
             background-color: #c3e6cb; /* Cor mais escura ao passar o mouse em completo */
             border-color: #28a745;
+        }
+
+        /* Progress Bar Styles */
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 10px; /* Espaço entre o conteúdo e a barra */
+            align-self: flex-end; /* Garante que a barra fique à direita, se houver espaço */
+        }
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background-color: #ccc; /* Cor inicial */
+            border-radius: 3px;
+            transition: width 0.4s ease-out, background-color 0.4s ease-out;
+        }
+        li.completed .progress-bar {
+            background-color: #28a745; /* Verde quando o item é marcado como completo */
+            width: 100%; /* Preenche a barra */
         }
 
         /* Media Queries para Responsividade (Celular) */
@@ -169,19 +203,18 @@
             }
             li {
                 padding: 12px 15px;
-                /* Mudança importante para celular: checkbox e texto em linhas separadas */
-                flex-direction: column; 
-                align-items: flex-start; 
             }
             input[type="checkbox"] {
-                margin-right: 0;
-                margin-bottom: 8px; /* Espaço abaixo do checkbox */
                 min-width: 24px; /* Aumenta um pouco mais para toque fácil */
                 min-height: 24px; /* Aumenta um pouco mais para toque fácil */
+                margin-bottom: 0; /* Remove a margem inferior aqui */
+            }
+            .checkbox-container {
+                 margin-bottom: 5px; /* Ajusta o espaço abaixo do checkbox/título */
             }
             .task-description {
                 font-size: 1em;
-                width: 100%; /* Ocupa toda a largura disponível */
+                width: calc(100% - 39px); /* Ocupa o restante da largura ao lado do checkbox */
             }
             .sub-tasks {
                 font-size: 0.9em;
@@ -256,29 +289,35 @@
 
         <h2>1. Definição do Produto Principal e Bônus</h2>
         <ul>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Produto Principal: Ebook</strong>
-                    <div class="sub-tasks">
-                        - Definir o <strong>TEMA</strong> exato do Ebook e qual <strong>problema principal</strong> ele resolve.<br>
-                        - Estruturar o <strong>conteúdo</strong> em capítulos, com exemplos práticos e exercícios.<br>
-                        - Criar uma <strong>capa profissional</strong> e diagramar o Ebook para leitura agradável.<br>
-                        - Escrever a <strong>proposta de valor</strong> clara: Qual transformação ele oferece?
+            <li class="checklist-item" data-item-id="item1">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem1">
+                    <div class="task-description">
+                        <strong>Produto Principal: Ebook</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - Definir o **TEMA** exato do Ebook e qual **problema principal** ele resolve.<br>
+                    - Estruturar o **conteúdo** em capítulos, com exemplos práticos e exercícios.<br>
+                    - Criar uma **capa profissional** e diagramar o Ebook para leitura agradável.<br>
+                    - Escrever a **proposta de valor** clara: Qual transformação ele oferece?
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Bônus para Agregação de Valor e Escassez Indireta</strong>
-                    <div class="sub-tasks">
-                        - <strong>Bônus 1:</strong> Mini-curso em vídeo (ex: "Primeiros Passos para [Aplicação do Ebook]").<br>
-                        - <strong>Bônus 2:</strong> Grupo Exclusivo no WhatsApp (ex: "para Dúvidas e Networking - 30 dias").<br>
-                        - <strong>Bônus 3:</strong> Checklist Interativo (ex: "para Implementação das Estratégias do Ebook").<br>
-                        - <strong>Bônus 4 (Escassez Pura):</strong> Sessão de Mentoria em Grupo ao Vivo (para os <strong>primeiros X compradores</strong>).
+            <li class="checklist-item" data-item-id="item2">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem2">
+                    <div class="task-description">
+                        <strong>Bônus para Agregação de Valor e Escassez Indireta</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - **Bônus 1:** Mini-curso em vídeo (ex: "Primeiros Passos para [Aplicação do Ebook]").<br>
+                    - **Bônus 2:** Grupo Exclusivo no WhatsApp (ex: "para Dúvidas e Networking - 30 dias").<br>
+                    - **Bônus 3:** Checklist Interativo (ex: "para Implementação das Estratégias do Ebook").<br>
+                    - **Bônus 4 (Escassez Pura):** Sessão de Mentoria em Grupo ao Vivo (para os **primeiros X compradores**).
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
         </ul>
 
@@ -290,30 +329,36 @@
 
         <h2>2. Criação e Gestão de Grupos no WhatsApp</h2>
         <ul>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Grupos de Pré-Lançamento (Aquecimento e Qualificação)</strong>
-                    <div class="sub-tasks">
-                        - Criar os grupos (ex: "Lançamento Ebook [Nome do Ebook] - Grupo VIP 1").<br>
-                        - Configurar grupos para <strong>"Apenas administradores podem enviar mensagens"</strong>.<br>
-                        - Divulgar os links dos grupos nas redes sociais, e-mail e bio.<br>
-                        - Enviar <strong>conteúdo de valor</strong> diário/semanal (áudios, vídeos, enquetes, dicas).<br>
-                        - Definir e comunicar as <strong>regras</strong> claras do grupo.<br>
-                        - Informar a <strong>data e hora exata</strong> da abertura do carrinho.
+            <li class="checklist-item" data-item-id="item3">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem3">
+                    <div class="task-description">
+                        <strong>Grupos de Pré-Lançamento (Aquecimento e Qualificação)</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - Criar os grupos (ex: "Lançamento Ebook [Nome do Ebook] - Grupo VIP 1").<br>
+                    - Configurar grupos para **"Apenas administradores podem enviar mensagens"**.<br>
+                    - Divulgar os links dos grupos nas redes sociais, e-mail e bio.<br>
+                    - Enviar **conteúdo de valor** diário/semanal (áudios, vídeos, enquetes, dicas).<br>
+                    - Definir e comunicar as **regras** claras do grupo.<br>
+                    - Informar a **data e hora exata** da abertura do carrinho.
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Grupos de Pós-Lançamento (Suporte e Comunidade para Compradores)</strong>
-                    <div class="sub-tasks">
-                        - Criar novo grupo exclusivo para <strong>compradores</strong> (ex: "Alunos Ebook [Nome do Ebook] - Turma 1").<br>
-                        - Enviar o link de acesso <strong>somente para quem comprou</strong> o produto.<br>
-                        - Oferecer suporte, responder dúvidas e fomentar networking entre os alunos.
+            <li class="checklist-item" data-item-id="item4">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem4">
+                    <div class="task-description">
+                        <strong>Grupos de Pós-Lançamento (Suporte e Comunidade para Compradores)</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - Criar novo grupo exclusivo para **compradores** (ex: "Alunos Ebook [Nome do Ebook] - Turma 1").<br>
+                    - Enviar o link de acesso **somente para quem comprou** o produto.<br>
+                    - Oferecer suporte, responder dúvidas e fomentar networking entre os alunos.
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
         </ul>
 
@@ -325,48 +370,60 @@
 
         <h2>3. Estratégias de Escassez e Urgência</h2>
         <ul>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Escassez de Vagas/Unidades (Aplicada aos Bônus)</strong>
-                    <div class="sub-tasks">
-                        - Definir número exato de vagas/unidades para bônus limitados (ex: "primeiros 50").<br>
-                        - Monitorar vendas em tempo real para controle do limite.<br>
-                        - <strong>Comunicar imediatamente</strong> o esgotamento do bônus em todos os canais.<br>
-                        - Usar <strong>contadores regressivos</strong> na página de vendas para vagas restantes.
+            <li class="checklist-item" data-item-id="item5">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem5">
+                    <div class="task-description">
+                        <strong>Escassez de Vagas/Unidades (Aplicada aos Bônus)</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - Definir número exato de vagas/unidades para bônus limitados (ex: "primeiros 50").<br>
+                    - Monitorar vendas em tempo real para controle do limite.<br>
+                    - **Comunicar imediatamente** o esgotamento do bônus em todos os canais.<br>
+                    - Usar **contadores regressivos** na página de vendas para vagas restantes.
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Escassez de Tempo (Aplicada à Oferta Principal)</strong>
-                    <div class="sub-tasks">
-                        - Definir <strong>data e hora exata</strong> para o encerramento da oferta ou aumento de preço.<br>
-                        - Implementar <strong>contadores regressivos</strong> na página de vendas.<br>
-                        - Enviar <strong>lembretes frequentes</strong> por e-mail e nos grupos de WhatsApp.<br>
-                        - <strong>CUMPRIR</strong> o prazo de fechamento do carrinho para manter a credibilidade.
+            <li class="checklist-item" data-item-id="item6">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem6">
+                    <div class="task-description">
+                        <strong>Escassez de Tempo (Aplicada à Oferta Principal)</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - Definir **data e hora exata** para o encerramento da oferta ou aumento de preço.<br>
+                    - Implementar **contadores regressivos** na página de vendas.<br>
+                    - Enviar **lembretes frequentes** por e-mail e nos grupos de WhatsApp.<br>
+                    - **CUMPRIR** o prazo de fechamento do carrinho para manter a credibilidade.
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Escassez de Lotes (Preço Crescente)</strong>
-                    <div class="sub-tasks">
-                        - Definir os lotes e os respectivos <strong>preços escalonados</strong>.<br>
-                        - Comunicar claramente quando um lote <strong>esgotar</strong> e o preço aumentar.
+            <li class="checklist-item" data-item-id="item7">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem7">
+                    <div class="task-description">
+                        <strong>Escassez de Lotes (Preço Crescente)</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - Definir os lotes e os respectivos **preços escalonados**.<br>
+                    - Comunicar claramente quando um lote **esgotar** e o preço aumentar.
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Bônus por Tempo Limitado ou Primeiros Compradores</strong>
-                    <div class="sub-tasks">
-                        - Destacar o <strong>valor e o prazo</strong> dos bônus extras (ex: "Compre nas primeiras 24h e ganhe X!").
+            <li class="checklist-item" data-item-id="item8">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem8">
+                    <div class="task-description">
+                        <strong>Bônus por Tempo Limitado ou Primeiros Compradores</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - Destacar o **valor e o prazo** dos bônus extras (ex: "Compre nas primeiras 24h e ganhe X!").
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
         </ul>
 
@@ -379,72 +436,87 @@
         <h2>4. Cronograma de Lançamento (Exemplo)</h2>
         <h3>Fase 1: Pré-Lançamento (Aquecimento)</h3>
         <ul>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Semana 1-2:</strong>
-                    <div class="sub-tasks">
-                        - Criar e divulgar grupos de WhatsApp.<br>
-                        - Produzir e entregar conteúdo de valor (lives, posts, e-mails).<br>
-                        - Realizar enquetes e interações para entender dores da audiência.<br>
-                        - Iniciar campanhas de tráfego pago para os grupos de WhatsApp.
+            <li class="checklist-item" data-item-id="item9">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem9">
+                    <div class="task-description">
+                        <strong>Semana 1-2:</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - Criar e divulgar grupos de WhatsApp.<br>
+                    - Produzir e entregar conteúdo de valor (lives, posts, e-mails).<br>
+                    - Realizar enquetes e interações para entender dores da audiência.<br>
+                    - Iniciar campanhas de tráfego pago para os grupos de WhatsApp.
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Semana 3:</strong>
-                    <div class="sub-tasks">
-                        - Entregar conteúdo mais aprofundado nos grupos.<br>
-                        - Realizar sessões de Q&A (Perguntas e Respostas).<br>
-                        - Anunciar <strong>data e hora exata</strong> da abertura do carrinho.<br>
-                        - Enviar últimos lembretes para o evento de lançamento (Webinar/Live).
+            <li class="checklist-item" data-item-id="item10">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem10">
+                    <div class="task-description">
+                        <strong>Semana 3:</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - Entregar conteúdo mais aprofundado nos grupos.<br>
+                    - Realizar sessões de Q&A (Perguntas e Respostas).<br>
+                    - Anunciar **data e hora exata** da abertura do carrinho.<br>
+                    - Enviar últimos lembretes para o evento de lançamento (Webinar/Live).
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
         </ul>
 
         <h3>Fase 2: Lançamento (Abertura de Carrinho)</h3>
         <ul>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Dia do Lançamento:</strong>
-                    <div class="sub-tasks">
-                        - Realizar Webinar/Live de lançamento, apresentando produto e oferta.<br>
-                        - <strong>Abrir o carrinho</strong> e enviar o link de vendas (grupos e e-mail).<br>
-                        - Comunicar os bônus e a escassez de forma clara.<br>
-                        - Oferecer suporte ativo para dúvidas.
+            <li class="checklist-item" data-item-id="item11">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem11">
+                    <div class="task-description">
+                        <strong>Dia do Lançamento:</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - Realizar Webinar/Live de lançamento, apresentando produto e oferta.<br>
+                    - **Abrir o carrinho** e enviar o link de vendas (grupos e e-mail).<br>
+                    - Comunicar os bônus e a escassez de forma clara.<br>
+                    - Oferecer suporte ativo para dúvidas.
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
         </ul>
 
         <h3>Fase 3: Pós-Lançamento (Fechamento de Carrinho e Pós-Venda)</h3>
         <ul>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Dias Pós-Lançamento:</strong>
-                    <div class="sub-tasks">
-                        - Enviar série de e-mails de vendas com gatilhos de escassez e prova social.<br>
-                        - Lembretes nos grupos de WhatsApp sobre o fechamento.<br>
-                        - Comunicar o esgotamento de bônus (se aplicável).<br>
-                        - Enviar mensagem final de <strong>fechamento definitivo</strong> do carrinho.
+            <li class="checklist-item" data-item-id="item12">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem12">
+                    <div class="task-description">
+                        <strong>Dias Pós-Lançamento:</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - Enviar série de e-mails de vendas com gatilhos de escassez e prova social.<br>
+                    - Lembretes nos grupos de WhatsApp sobre o fechamento.<br>
+                    - Comunicar o esgotamento de bônus (se aplicável).<br>
+                    - Enviar mensagem final de **fechamento definitivo** do carrinho.
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Pós-Venda e Suporte:</strong>
-                    <div class="sub-tasks">
-                        - Enviar acesso ao produto e bônus (incluindo grupo de alunos).<br>
-                        - Oferecer suporte contínuo aos compradores.<br>
-                        - Coletar feedback e depoimentos para futuras provas sociais.
+            <li class="checklist-item" data-item-id="item13">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem13">
+                    <div class="task-description">
+                        <strong>Pós-Venda e Suporte:</strong>
                     </div>
                 </div>
+                <div class="sub-tasks">
+                    - Enviar acesso ao produto e bônus (incluindo grupo de alunos).<br>
+                    - Oferecer suporte contínuo aos compradores.<br>
+                    - Coletar feedback e depoimentos para futuras provas sociais.
+                </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
         </ul>
 
@@ -456,35 +528,50 @@
 
         <h2>5. Ferramentas Essenciais (Para Pesquisa)</h2>
         <ul>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Plataforma de Vendas:</strong> Hotmart, Eduzz, Kiwify, Monetizze.
+            <li class="checklist-item" data-item-id="item14">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem14">
+                    <div class="task-description">
+                        <strong>Plataforma de Vendas:</strong> Hotmart, Eduzz, Kiwify, Monetizze.
+                    </div>
                 </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>E-mail Marketing:</strong> Leadlovers, ActiveCampaign, Mailchimp, Sendinblue.
+            <li class="checklist-item" data-item-id="item15">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem15">
+                    <div class="task-description">
+                        <strong>E-mail Marketing:</strong> Leadlovers, ActiveCampaign, Mailchimp, Sendinblue.
+                    </div>
                 </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Página de Vendas:</strong> Elementor (WordPress), Leadpages, ClickFunnels, Klickpages.
+            <li class="checklist-item" data-item-id="item16">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem16">
+                    <div class="task-description">
+                        <strong>Página de Vendas:</strong> Elementor (WordPress), Leadpages, ClickFunnels, Klickpages.
+                    </div>
                 </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Grupos de Comunicação:</strong> WhatsApp Business, Telegram.
+            <li class="checklist-item" data-item-id="item17">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem17">
+                    <div class="task-description">
+                        <strong>Grupos de Comunicação:</strong> WhatsApp Business, Telegram.
+                    </div>
                 </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
-            <li onclick="toggleCheckbox(this)">
-                <input type="checkbox">
-                <div class="task-description">
-                    <strong>Ferramentas de Design:</strong> Canva, Figma.
+            <li class="checklist-item" data-item-id="item18">
+                <div class="checkbox-container">
+                    <input type="checkbox" id="checkItem18">
+                    <div class="task-description">
+                        <strong>Ferramentas de Design:</strong> Canva, Figma.
+                    </div>
                 </div>
+                <div class="progress-bar-container"><div class="progress-bar"></div></div>
             </li>
         </ul>
 
@@ -494,50 +581,61 @@
     </div>
 
     <script>
-        // Função para alternar o estado do checkbox e a classe 'completed'
-        function toggleCompleted(checkbox) {
-            const listItem = checkbox.closest('li');
-            if (checkbox.checked) {
-                listItem.classList.add('completed');
-            } else {
-                listItem.classList.remove('completed');
-            }
-            // Salva o estado no localStorage
-            saveCheckboxState(checkbox);
-        }
-
-        // Função para alternar o checkbox ao clicar em qualquer parte do item da lista
-        function toggleCheckbox(listItem) {
-            const checkbox = listItem.querySelector('input[type="checkbox"]');
-            // Impede que o clique no texto da descrição também altere o checkbox
-            // Apenas o clique fora do checkbox, mas dentro do 'li', ou no próprio checkbox, ativará a função.
-            if (event.target !== checkbox) { 
-                checkbox.checked = !checkbox.checked;
-                toggleCompleted(checkbox);
-            }
-        }
-
-        // Salvar o estado de um checkbox no localStorage
-        function saveCheckboxState(checkbox) {
-            const index = Array.from(document.querySelectorAll('input[type="checkbox"]')).indexOf(checkbox);
-            localStorage.setItem(`checkbox-${index}`, checkbox.checked);
-        }
-
-        // Carregar o estado dos checkboxes do localStorage ao carregar a página
         document.addEventListener('DOMContentLoaded', () => {
-            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
-            checkboxes.forEach((checkbox, index) => {
-                const storedState = localStorage.getItem(`checkbox-${index}`);
-                if (storedState === 'true') {
+            const checklistItems = document.querySelectorAll('.checklist-item');
+
+            checklistItems.forEach((item, index) => {
+                const checkbox = item.querySelector('input[type="checkbox"]');
+                const progressBar = item.querySelector('.progress-bar');
+                const itemId = `checklist-item-${index}`; // ID único para salvar no localStorage
+
+                // Carregar o estado salvo no localStorage
+                const savedState = localStorage.getItem(itemId);
+                if (savedState === 'checked') {
                     checkbox.checked = true;
-                    // Chamar toggleCompleted para aplicar a classe 'completed'
-                    toggleCompleted(checkbox);
+                    item.classList.add('completed');
+                    if (progressBar) {
+                        progressBar.style.width = '100%';
+                    }
                 }
-                // Adicionar evento de change para salvar o estado (caso o usuário clique diretamente no checkbox)
+
+                // Adicionar evento de clique ao item completo (li)
+                item.addEventListener('click', (event) => {
+                    // Evita que o clique no sub-tasks ou em outros elementos internos duplique a ação
+                    if (event.target !== checkbox && !event.target.closest('.sub-tasks')) {
+                        checkbox.checked = !checkbox.checked;
+                    }
+                    updateItemState(item, checkbox, progressBar, itemId);
+                });
+
+                // Adicionar evento de change diretamente ao checkbox para capturar cliques diretos nele
                 checkbox.addEventListener('change', () => {
-                    toggleCompleted(checkbox);
+                    updateItemState(item, checkbox, progressBar, itemId);
                 });
             });
+
+            /**
+             * Atualiza o estado visual do item e salva no localStorage.
+             * @param {HTMLElement} item O elemento <li> do checklist.
+             * @param {HTMLInputElement} checkbox O checkbox dentro do item.
+             * @param {HTMLElement} progressBar A barra de progresso dentro do item.
+             * @param {string} itemId O ID único do item para localStorage.
+             */
+            function updateItemState(item, checkbox, progressBar, itemId) {
+                if (checkbox.checked) {
+                    item.classList.add('completed');
+                    if (progressBar) {
+                        progressBar.style.width = '100%';
+                    }
+                    localStorage.setItem(itemId, 'checked');
+                } else {
+                    item.classList.remove('completed');
+                    if (progressBar) {
+                        progressBar.style.width = '0%';
+                    }
+                    localStorage.setItem(itemId, 'unchecked');
+                }
+            }
         });
     </script>
 </body>
