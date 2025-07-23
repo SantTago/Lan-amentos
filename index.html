@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist de Lançamento Completo</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #e0e6ec;
+            padding-bottom: 15px;
+        }
+        h2 {
+            color: #007bff;
+            font-size: 1.8em;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            border-left: 5px solid #007bff;
+            padding-left: 10px;
+            background-color: #eaf6ff;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        h3 {
+            color: #28a745;
+            font-size: 1.4em;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f8f9fa;
+            border: 1px solid #e0e6ec;
+            margin-bottom: 10px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: flex-start;
+            transition: background-color 0.3s ease;
+        }
+        li:hover {
+            background-color: #e9ecef;
+        }
+        input[type="checkbox"] {
+            margin-right: 15px;
+            min-width: 20px;
+            min-height: 20px;
+            cursor: pointer;
+            accent-color: #28a745; /* Cor do checkbox */
+        }
+        .task-description {
+            flex-grow: 1;
+            font-size: 1.1em;
+        }
+        .sub-tasks {
+            margin-top: 10px;
+            font-size: 0.95em;
+            color: #555;
+            padding-left: 20px;
+            border-left: 2px dashed #ccddee;
+            margin-left: 15px;
+        }
+        .sub-tasks strong {
+            color: #0056b3;
+        }
+        .notes {
+            font-style: italic;
+            color: #666;
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #fff3cd;
+            border-left: 5px solid #ffc107;
+            border-radius: 5px;
+        }
+        .completed {
+            background-color: #d4edda;
+            border-color: #28a745;
+            text-decoration: line-through;
+            color: #6c757d;
+        }
+        .completed .task-description {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Checklist de Lançamento Completo 🚀</h1>
+        <p class="notes">
+            <strong>Dica:</strong> Salve este arquivo HTML no seu computador (clicando com o botão direito na página e escolhendo "Salvar como...") e abra-o no seu navegador. Você pode ir marcando as caixinhas e acompanhando seu progresso!
+        </p>
+
+        <h2>1. Definição do Produto Principal e Bônus</h2>
+        <ul>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Produto Principal: Ebook</strong>
+                    <div class="sub-tasks">
+                        - Definir o <strong>TEMA</strong> exato do Ebook e qual <strong>problema principal</strong> ele resolve.<br>
+                        - Estruturar o <strong>conteúdo</strong> em capítulos, com exemplos práticos e exercícios.<br>
+                        - Criar uma <strong>capa profissional</strong> e diagramar o Ebook para leitura agradável.<br>
+                        - Escrever a <strong>proposta de valor</strong> clara: Qual transformação ele oferece?
+                    </div>
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Bônus para Agregação de Valor e Escassez Indireta</strong>
+                    <div class="sub-tasks">
+                        - <strong>Bônus 1:</strong> Mini-curso em vídeo (ex: "Primeiros Passos para [Aplicação do Ebook]").<br>
+                        - <strong>Bônus 2:</strong> Grupo Exclusivo no WhatsApp (ex: "para Dúvidas e Networking - 30 dias").<br>
+                        - <strong>Bônus 3:</strong> Checklist Interativo (ex: "para Implementação das Estratégias do Ebook").<br>
+                        - <strong>Bônus 4 (Escassez Pura):</strong> Sessão de Mentoria em Grupo ao Vivo (para os <strong>primeiros X compradores</strong>).
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <h2>2. Criação e Gestão de Grupos no WhatsApp</h2>
+        <ul>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Grupos de Pré-Lançamento (Aquecimento e Qualificação)</strong>
+                    <div class="sub-tasks">
+                        - Criar os grupos (ex: "Lançamento Ebook [Nome do Ebook] - Grupo VIP 1").<br>
+                        - Configurar grupos para <strong>"Apenas administradores podem enviar mensagens"</strong>.<br>
+                        - Divulgar os links dos grupos nas redes sociais, e-mail e bio.<br>
+                        - Enviar <strong>conteúdo de valor</strong> diário/semanal (áudios, vídeos, enquetes, dicas).<br>
+                        - Definir e comunicar as <strong>regras</strong> claras do grupo.<br>
+                        - Informar a <strong>data e hora exata</strong> da abertura do carrinho.
+                    </div>
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Grupos de Pós-Lançamento (Suporte e Comunidade para Compradores)</strong>
+                    <div class="sub-tasks">
+                        - Criar novo grupo exclusivo para <strong>compradores</strong> (ex: "Alunos Ebook [Nome do Ebook] - Turma 1").<br>
+                        - Enviar o link de acesso <strong>somente para quem comprou</strong> o produto.<br>
+                        - Oferecer suporte, responder dúvidas e fomentar networking entre os alunos.
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <h2>3. Estratégias de Escassez e Urgência</h2>
+        <ul>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Escassez de Vagas/Unidades (Aplicada aos Bônus)</strong>
+                    <div class="sub-tasks">
+                        - Definir número exato de vagas/unidades para bônus limitados (ex: "primeiros 50").<br>
+                        - Monitorar vendas em tempo real para controle do limite.<br>
+                        - <strong>Comunicar imediatamente</strong> o esgotamento do bônus em todos os canais.<br>
+                        - Usar <strong>contadores regressivos</strong> na página de vendas para vagas restantes.
+                    </div>
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Escassez de Tempo (Aplicada à Oferta Principal)</strong>
+                    <div class="sub-tasks">
+                        - Definir <strong>data e hora exata</strong> para o encerramento da oferta ou aumento de preço.<br>
+                        - Implementar <strong>contadores regressivos</strong> na página de vendas.<br>
+                        - Enviar <strong>lembretes frequentes</strong> por e-mail e nos grupos de WhatsApp.<br>
+                        - <strong>CUMPRIR</strong> o prazo de fechamento do carrinho para manter a credibilidade.
+                    </div>
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Escassez de Lotes (Preço Crescente)</strong>
+                    <div class="sub-tasks">
+                        - Definir os lotes e os respectivos <strong>preços escalonados</strong>.<br>
+                        - Comunicar claramente quando um lote <strong>esgotar</strong> e o preço aumentar.
+                    </div>
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Bônus por Tempo Limitado ou Primeiros Compradores</strong>
+                    <div class="sub-tasks">
+                        - Destacar o <strong>valor e o prazo</strong> dos bônus extras (ex: "Compre nas primeiras 24h e ganhe X!").
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <h2>4. Cronograma de Lançamento (Exemplo)</h2>
+        <h3>Fase 1: Pré-Lançamento (Aquecimento)</h3>
+        <ul>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Semana 1-2:</strong>
+                    <div class="sub-tasks">
+                        - Criar e divulgar grupos de WhatsApp.<br>
+                        - Produzir e entregar conteúdo de valor (lives, posts, e-mails).<br>
+                        - Realizar enquetes e interações para entender dores da audiência.<br>
+                        - Iniciar campanhas de tráfego pago para os grupos de WhatsApp.
+                    </div>
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Semana 3:</strong>
+                    <div class="sub-tasks">
+                        - Entregar conteúdo mais aprofundado nos grupos.<br>
+                        - Realizar sessões de Q&A (Perguntas e Respostas).<br>
+                        - Anunciar <strong>data e hora exata</strong> da abertura do carrinho.<br>
+                        - Enviar últimos lembretes para o evento de lançamento (Webinar/Live).
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <h3>Fase 2: Lançamento (Abertura de Carrinho)</h3>
+        <ul>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Dia do Lançamento:</strong>
+                    <div class="sub-tasks">
+                        - Realizar Webinar/Live de lançamento, apresentando produto e oferta.<br>
+                        - <strong>Abrir o carrinho</strong> e enviar o link de vendas (grupos e e-mail).<br>
+                        - Comunicar os bônus e a escassez de forma clara.<br>
+                        - Oferecer suporte ativo para dúvidas.
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <h3>Fase 3: Pós-Lançamento (Fechamento de Carrinho e Pós-Venda)</h3>
+        <ul>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Dias Pós-Lançamento:</strong>
+                    <div class="sub-tasks">
+                        - Enviar série de e-mails de vendas com gatilhos de escassez e prova social.<br>
+                        - Lembretes nos grupos de WhatsApp sobre o fechamento.<br>
+                        - Comunicar o esgotamento de bônus (se aplicável).<br>
+                        - Enviar mensagem final de <strong>fechamento definitivo</strong> do carrinho.
+                    </div>
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Pós-Venda e Suporte:</strong>
+                    <div class="sub-tasks">
+                        - Enviar acesso ao produto e bônus (incluindo grupo de alunos).<br>
+                        - Oferecer suporte contínuo aos compradores.<br>
+                        - Coletar feedback e depoimentos para futuras provas sociais.
+                    </div>
+                </div>
+            </li>
+        </ul>
+
+        <h2>5. Ferramentas Essenciais (Para Pesquisa)</h2>
+        <ul>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Plataforma de Vendas:</strong> Hotmart, Eduzz, Kiwify, Monetizze.
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>E-mail Marketing:</strong> Leadlovers, ActiveCampaign, Mailchimp, Sendinblue.
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Página de Vendas:</strong> Elementor (WordPress), Leadpages, ClickFunnels, Klickpages.
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Grupos de Comunicação:</strong> WhatsApp Business, Telegram.
+                </div>
+            </li>
+            <li>
+                <input type="checkbox" onchange="toggleCompleted(this)">
+                <div class="task-description">
+                    <strong>Ferramentas de Design:</strong> Canva, Figma.
+                </div>
+            </li>
+        </ul>
+
+        <p class="notes">
+            Lembre-se: A chave é a comunicação clara, a entrega de valor e a construção de um relacionamento com sua audiência! Adapte este plano à sua realidade.
+        </p>
+    </div>
+
+    <script>
+        function toggleCompleted(checkbox) {
+            const listItem = checkbox.closest('li');
+            if (checkbox.checked) {
+                listItem.classList.add('completed');
+            } else {
+                listItem.classList.remove('completed');
+            }
+        }
+
+        // Recuperar o estado dos checkboxes do localStorage (opcional, para manter o progresso)
+        document.addEventListener('DOMContentLoaded', () => {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach((checkbox, index) => {
+                const storedState = localStorage.getItem(`checkbox-${index}`);
+                if (storedState === 'true') {
+                    checkbox.checked = true;
+                    toggleCompleted(checkbox);
+                }
+                checkbox.addEventListener('change', () => {
+                    localStorage.setItem(`checkbox-${index}`, checkbox.checked);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
